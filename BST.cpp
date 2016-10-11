@@ -85,7 +85,16 @@ bool BST<T>::find(const T & x)
 template <class T>
 const T & BST<T>::findMin()
 {
-
+    Node<T> *activ = root;
+    if(root == NULL)
+    {
+        throw 1;
+    }
+    while(activ ->left != NULL)
+    {
+        activ = activ->left;
+    }
+    return activ->data;
 }
 #endif
 
@@ -96,7 +105,16 @@ const T & BST<T>::findMin()
 template <class T>
 const T & BST<T>::findMax()
 {
-
+    Node<T> *activ = root;
+    if(root == NULL)
+    {
+        throw 1;
+    }
+    while(activ ->right != NULL)
+    {
+        activ = activ->right;
+    }
+    return activ->data;
 }
 #endif
 
@@ -156,7 +174,16 @@ Node<T> * BST<T>::findNode(Node<T> * node,const T & x)
 template <class T>
 Node<T> * BST<T>::findMinNode(Node<T> * node)
 {
-
+    Node<T> *activ = node;
+    if(node == NULL)
+    {
+        throw 1;
+    }
+    while(activ ->left != NULL)
+    {
+        activ = activ->left;
+    }
+    return activ;
 }
 #endif
 
@@ -167,7 +194,16 @@ Node<T> * BST<T>::findMinNode(Node<T> * node)
 template <class T>
 Node<T> * BST<T>::findMaxNode(Node<T> * node)
 {
-
+    Node<T> *activ = node;
+    if(node == NULL)
+    {
+        return null;
+    }
+    while(activ ->right != NULL)
+    {
+        activ = activ->right;
+    }
+    return activ;
 }
 #endif
 
