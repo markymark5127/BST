@@ -52,10 +52,26 @@ bool BST<T>::isEmpty()
 template <class T>
 bool BST<T>::find(const T & x)
 {
-    bool ans=true;
-    if(!isEmpty() && )
+    bool ans=false;
+    if(!isEmpty())
     {
-
+        Node<T> *activ = root;
+        while( activ != NULL)
+        {
+            if(activ->data == x)
+            {
+                ans=true;
+                activ = NULL;
+            }
+            else if(activ->data < x)
+            {
+                activ = activ->right;
+            }
+            else if(activ->data > x)
+            {
+                activ = activ->left;
+            }
+        }
     }
     return ans;
 
