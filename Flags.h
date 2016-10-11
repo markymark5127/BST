@@ -1,10 +1,10 @@
 // Comment to test individual method
-#define ALL 1
+//#define ALL 1
 
 // Uncomment to test individual method
 //#define CONSTRUCTOR 1
 //#define DESTRUCTOR 1
-//#define ISEMPTY 1
+#define ISEMPTY 1
 //#define FIND 1
 //#define FINDMIN 1
 //#define FINDMAX 1

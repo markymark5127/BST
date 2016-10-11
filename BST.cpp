@@ -12,7 +12,8 @@ template <class T>
 BST<T>::BST()
 {
     // TODO: Initialize root
-    root = new Node<T>();
+    root = NULL;
+    numNodes=0;
 }
 #endif
 
@@ -23,6 +24,7 @@ template <class T>
 BST<T>::~BST()
 {
     // TODO: Remove any nodes
+    makeEmpty();
     delete root;
 }
 #endif
@@ -32,9 +34,14 @@ BST<T>::~BST()
 #if ALL || ISEMPTY
 // TODO: isEmpty() method
 template <class T>
-bool BST::isEmpty()
+bool BST<T>::isEmpty()
 {
-
+    bool ans = false;
+    if(root == NULL && numNodes == 0)
+    {
+        ans = true;
+    }
+    return ans;
 }
 #endif
 
@@ -43,8 +50,14 @@ bool BST::isEmpty()
 #if ALL || FIND
 // TODO: find() method
 template <class T>
-bool BST::find(const T & x)
+bool BST<T>::find(const T & x)
 {
+    bool ans=true;
+    if(!isEmpty() && )
+    {
+
+    }
+    return ans;
 
 }
 #endif
@@ -54,7 +67,7 @@ bool BST::find(const T & x)
 #if ALL || FINDMIN
 // TODO: findMin() method
 template <class T>
-const T & BST::findMin()
+const T & BST<T>::findMin()
 {
 
 }
@@ -65,7 +78,7 @@ const T & BST::findMin()
 #if ALL || FINDMAX
 // TODO: findMax() method
 template <class T>
-const T & BST::findMax()
+const T & BST<T>::findMax()
 {
 
 }
@@ -87,7 +100,7 @@ void BST::insert(const T & x)
 #if ALL || REMOVE
 // TODO: remove() method
 template <class T>
-void BST::remove(const T & x)
+void BST<T>::remove(const T & x)
 {
 
 }
@@ -98,7 +111,7 @@ void BST::remove(const T & x)
 #if ALL || MAKEEMPTY
 // TODO: makeEmpty() method
 template <class T>
-void BST::makeEmpty()
+void BST<T>::makeEmpty()
 {
 
 }
@@ -114,7 +127,7 @@ void BST::makeEmpty()
 #if ALL || FINDNODE
 // TODO: findNode() private method
 template <class T>
-Node<T> * BST::findNode(Node<T> * node,const T & x)
+Node<T> * BST<T>::findNode(Node<T> * node,const T & x)
 {
 
 }
@@ -125,7 +138,7 @@ Node<T> * BST::findNode(Node<T> * node,const T & x)
 #if ALL || FINDMINNODE
 // TODO: findMinNode() private method
 template <class T>
-Node<T> * BST::findMinNode(Node<T> * node)
+Node<T> * BST<T>::findMinNode(Node<T> * node)
 {
 
 }
@@ -136,7 +149,7 @@ Node<T> * BST::findMinNode(Node<T> * node)
 #if ALL || FINDMAXNODE
 // TODO: findMaxNode() private method
 template <class T>
-Node<T> * BST::findMaxNode(Node<T> * node)
+Node<T> * BST<T>::findMaxNode(Node<T> * node)
 {
 
 }
@@ -147,7 +160,7 @@ Node<T> * BST::findMaxNode(Node<T> * node)
 #if ALL || INSERTNODE
 // TODO: insertNode() private method
 template <class T>
-Node<T> * BST::insertNode(Node<T> * node,const T & x)
+Node<T> * BST<T>::insertNode(Node<T> * node,const T & x)
 {
 
 }
@@ -158,7 +171,7 @@ Node<T> * BST::insertNode(Node<T> * node,const T & x)
 #if ALL || FINDSUCCESSOR
 // TODO: findSuccessor() private method
 template <class T>
-Node<T> * BST::findSuccessor(Node<T> * node)
+Node<T> * BST<T>::findSuccessor(Node<T> * node)
 {
 
 }
@@ -170,7 +183,7 @@ Node<T> * BST::findSuccessor(Node<T> * node)
 #if ALL || FINDPARENTOF
 // TODO: findParentOf() private method
 template <class T>
-Node<T> * BST::findParentOf(const T & x)
+Node<T> * BST<T>::findParentOf(const T & x)
 {
 
 }
@@ -181,7 +194,7 @@ Node<T> * BST::findParentOf(const T & x)
 #if ALL || REMOVEALLNODES
 // TODO: removeAllNodes() private method
 template <class T>
-void BST::removeAllNodes(Node<T> * node)
+void BST<T>::removeAllNodes(Node<T> * node)
 {
 
 }
