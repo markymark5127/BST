@@ -9,11 +9,11 @@
 //#define FINDMIN 1
 //#define FINDMAX 1
 //#define INSERT 1
-//#define REMOVE 1
+#define REMOVE 1
 //#define MAKEEMPTY 1
 
 //#define FINDNODE 1
-#define FINDMINNODE 1
+//#define FINDMINNODE 1
 //#define FINDMAXNODE 1
 //#define FINDSUCCESSOR 1
 //#define FINDPARENTOF 1

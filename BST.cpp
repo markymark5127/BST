@@ -123,9 +123,17 @@ const T & BST<T>::findMax()
 #if ALL || INSERT
 // TODO: insert() method
 template <class T>
-void BST::insert(const T & x)
+void BST<T>::insert(const T & x)
 {
-
+    if(root != NULL)
+    {
+        insertNode(root,x);
+    }
+    else
+    {
+        root = new Node<T>(x,NULL,NULL);
+        numNodes=1;
+    }
 }
 #endif
 
@@ -136,7 +144,80 @@ void BST::insert(const T & x)
 template <class T>
 void BST<T>::remove(const T & x)
 {
+    if((isEmpty() == false) && (find(x)==true)) {
+        Node<T> *del = findNode(root, x);
+        if (root == del)
+        {
+            if (del->left == NULL && del->right == NULL)
+                root = NULL;
+            else if (del->right == NULL && del->left != NULL)
+                root = del->left;
+            else if (del->left == NULL && del->right != NULL)
+                root = del->right;
+            else
+                root =findSuccessor(del)->data;
 
+        }
+        else
+        {
+            Node<T> *parent = findParentOf(x);
+
+            if (del->left == NULL && del->right == NULL)
+            {
+
+                if (parent->left->data == x)
+                {
+                    parent->left = NULL;
+                }
+                else
+                {
+                    parent->right = NULL;
+                }
+                delete del;
+
+            }
+            else if (del->right == NULL && del->left != NULL)
+            {
+                if (parent->left->data == x)
+                {
+                    parent->left = del->left;
+                }
+                else
+                {
+                    parent->right = del->left;
+                }
+                delete del;
+            }
+            else if (del->left == NULL && del->right != NULL)
+            {
+                if (parent->left->data == x)
+                {
+                    parent->left = del->right;
+                }
+                else
+                {
+                    parent->right = del->right;
+                }
+                delete del;
+            }
+            else
+            {
+                Node<T> *success = findSuccessor(del);
+                if (parent->left->data == x)
+                {
+                    parent->left->data = success->data;
+                    if(success->right != NULL)
+                        parent->left = findSuccessor(success);
+                }
+                else
+                {
+                    parent->right->data = success->data;
+                }
+                delete success;
+            }
+        }
+        numNodes--;
+    }
 }
 #endif
 
@@ -147,7 +228,13 @@ void BST<T>::remove(const T & x)
 template <class T>
 void BST<T>::makeEmpty()
 {
-
+    Node<T> *activ = root;
+    if(root!=NULL)
+    {
+        removeAllNodes(activ);
+    }
+    numNodes=0;
+    root=NULL;
 }
 #endif
 
