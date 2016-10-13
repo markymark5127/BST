@@ -144,80 +144,62 @@ void BST<T>::insert(const T & x)
 template <class T>
 void BST<T>::remove(const T & x)
 {
-    if((isEmpty() == false) && (find(x)==true)) {
-        Node<T> *del = findNode(root, x);
-        if (root == del)
-        {
-            if (del->left == NULL && del->right == NULL)
-                root = NULL;
-            else if (del->right == NULL && del->left != NULL)
-                root = del->left;
-            else if (del->left == NULL && del->right != NULL)
-                root = del->right;
-            else
-                root =findSuccessor(del)->data;
+    //Case 1: The value to remove is not in the tree - do nothing.
+	if(find(x))
+	{
+		Node<T> *delNode = findNode(root,x);
+		Node<T> *parNode = findParentOf(x);
+		//Case 2: The node to remove has *no children*, i.e. is a leaf node - simply remove the node
+		if(delNode->left==NULL && delNode->right == NULL)
+		{
+			if(delNode->data == root->data)
+			{
+				root=NULL;
+			}
+			else
+			{
 
-        }
-        else
-        {
-            Node<T> *parent = findParentOf(x);
-
-            if (del->left == NULL && del->right == NULL)
+				if(parNode->right->data == x)
+				{
+					parNode->right = NULL;
+				}
+				else if(parNode->left->data == x)
+				{
+					parNode->left = NULL;
+				}
+				delete delNode;
+			}
+		}
+		//Case 3: The node to remove has *one child* - replace the node with its child
+		else if(delNode->left ==NULL || delNode->right==NULL)
+		{
+			if(delNode->left != NULL)
+			{
+				delNode = delNode->left;
+			}
+			else
+			{
+				delNode = delNode->right;
+			}
+		}
+		//Case 4: The node to remove has *two children* - replace the node with its *successor*
+		else
+		{
+			Node<T> *sNode = findSuccessor(delNode);
+			Node<T> *parSNode = findParentOf(sNode->data);
+            if(parSNode->left->right != NULL && )
             {
-
-                if (parent->left->data == x)
-                {
-                    parent->left = NULL;
-                }
-                else
-                {
-                    parent->right = NULL;
-                }
-                delete del;
-
-            }
-            else if (del->right == NULL && del->left != NULL)
-            {
-                if (parent->left->data == x)
-                {
-                    parent->left = del->left;
-                }
-                else
-                {
-                    parent->right = del->left;
-                }
-                delete del;
-            }
-            else if (del->left == NULL && del->right != NULL)
-            {
-                if (parent->left->data == x)
-                {
-                    parent->left = del->right;
-                }
-                else
-                {
-                    parent->right = del->right;
-                }
-                delete del;
+                parSNode->left = par->
             }
             else
             {
-                Node<T> *success = findSuccessor(del);
-                if (parent->left->data == x)
-                {
-                    parent->left->data = success->data;
-                    if(success->right != NULL)
-                        parent->left = findSuccessor(success);
-                }
-                else
-                {
-                    parent->right->data = success->data;
-                }
-                delete success;
+
             }
-        }
-        numNodes--;
-    }
+			delNode->data = sNode->data;
+			remove(x);
+		}
+		numNodes--;
+	}
 }
 #endif
 
@@ -344,11 +326,11 @@ Node<T> * BST<T>::findSuccessor(Node<T> * node)
 template <class T>
 Node<T> * BST<T>::findParentOf(const T & x)
 {
-    if(!isEmpty())
+    if(find(x))
     {
         if(root->data == x)
         {
-            return NULL; // WHAT DO I RETURN IF TRYING TO FIND PARENT OF ROOT
+            return NULL;
         }
         else
         {

@@ -679,12 +679,13 @@ TEST_CASE("testing remove() method on a non-empty BST", "[REMOVE]") {
         REQUIRE(tree.numNodes == 11);
     }
     SECTION("verify that remove(x) successfully removes a node that is the root node") {
+        std::cout<<tree.findParentOf(50)<<" return null";
         tree.remove(50);
         std::stringstream ss2;
         PrettyPrinter::printPretty(tree.root, 1, 0, ss2);
         INFO("after attempting to remove the value 50");
         const char *treeString2 = "\n"
-            "                ______________50______________\n"
+            "                ______________51______________\n"
             "               /                              \\\n"
             "        ______25______                  ______75      \n"
             "       /              \\                /               \n"
