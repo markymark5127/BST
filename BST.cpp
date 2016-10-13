@@ -327,6 +327,10 @@ Node<T> * BST<T>::insertNode(Node<T> * node,const T & x)
 template <class T>
 Node<T> * BST<T>::findSuccessor(Node<T> * node)
 {
+    if(node->right==NULL)
+    {
+        return NULL;
+    }
     Node<T> *findS = node->right;
     return findMinNode(findS);
 }
@@ -344,7 +348,7 @@ Node<T> * BST<T>::findParentOf(const T & x)
     {
         if(root->data == x)
         {
-            return root;
+            return NULL; // WHAT DO I RETURN IF TRYING TO FIND PARENT OF ROOT
         }
         else
         {
@@ -377,7 +381,17 @@ Node<T> * BST<T>::findParentOf(const T & x)
 template <class T>
 void BST<T>::removeAllNodes(Node<T> * node)
 {
-
+    if(numNodes>0) {
+        while (findMinNode(node)->data < node->data)
+        {
+            remove(findMinNode(node)->data);
+        }
+        while (findMaxNode(node)->data > node->data)
+        {
+            remove(findMaxNode(node)->data);
+        }
+        numNodes = 0;
+    }
 }
 #endif
 

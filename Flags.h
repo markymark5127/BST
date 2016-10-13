@@ -16,6 +16,6 @@
 //#define FINDMINNODE 1
 //#define FINDMAXNODE 1
 //#define FINDSUCCESSOR 1
-#define FINDPARENTOF 1
+//#define FINDPARENTOF 1
 //#define INSERTNODE 1
 //#define REMOVEALLNODES 1
