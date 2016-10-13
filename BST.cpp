@@ -61,7 +61,7 @@ bool BST<T>::find(const T & x)
             if(activ->data == x)
             {
                 ans=true;
-                activ = NULL;
+                break;
             }
             else if(activ->data < x)
             {
@@ -250,7 +250,12 @@ void BST<T>::makeEmpty()
 template <class T>
 Node<T> * BST<T>::findNode(Node<T> * node,const T & x)
 {
-
+    if (node == NULL or x == node->data)
+         return node;
+    else if (x < node->data)
+         return findNode(node->left, x);
+    else
+         return findNode(node->right, x);
 }
 #endif
 
@@ -261,16 +266,13 @@ Node<T> * BST<T>::findNode(Node<T> * node,const T & x)
 template <class T>
 Node<T> * BST<T>::findMinNode(Node<T> * node)
 {
-    Node<T> *activ = node;
-    if(node == NULL)
-    {
-        throw 1;
+    if(isEmpty()){
+        return NULL;
     }
-    while(activ ->left != NULL)
-    {
-        activ = activ->left;
-    }
-    return activ;
+    if (node->left == NULL)
+        return node;
+    else
+     return findMinNode(node->left);
 }
 #endif
 
@@ -281,16 +283,13 @@ Node<T> * BST<T>::findMinNode(Node<T> * node)
 template <class T>
 Node<T> * BST<T>::findMaxNode(Node<T> * node)
 {
-    Node<T> *activ = node;
-    if(node == NULL)
-    {
-        return null;
+    if(isEmpty()){
+        return NULL;
     }
-    while(activ ->right != NULL)
-    {
-        activ = activ->right;
-    }
-    return activ;
+    if (node->right == NULL)
+        return node;
+    else
+     return findMaxNode(node->right);
 }
 #endif
 
@@ -301,7 +300,23 @@ Node<T> * BST<T>::findMaxNode(Node<T> * node)
 template <class T>
 Node<T> * BST<T>::insertNode(Node<T> * node,const T & x)
 {
-
+    if(!find(x))
+    {
+        if (node == NULL)
+        {
+            node = new Node<T>(x, NULL, NULL);
+            numNodes++;
+        }
+        else if (x < node->data)
+        {
+            node->left = insertNode(node->left, x);
+        }
+        else
+        {
+            node->right = insertNode(node->right, x);
+        }
+        return node;
+    }
 }
 #endif
 
@@ -312,7 +327,8 @@ Node<T> * BST<T>::insertNode(Node<T> * node,const T & x)
 template <class T>
 Node<T> * BST<T>::findSuccessor(Node<T> * node)
 {
-
+    Node<T> *findS = node->right;
+    return findMinNode(findS);
 }
 
 #endif
@@ -324,7 +340,33 @@ Node<T> * BST<T>::findSuccessor(Node<T> * node)
 template <class T>
 Node<T> * BST<T>::findParentOf(const T & x)
 {
+    if(!isEmpty())
+    {
+        if(root->data == x)
+        {
+            return root;
+        }
+        else
+        {
+            Node<T> *activ = root;
+            while (activ != NULL)
+            {
 
+                if (activ->left->data == x || activ->right->data == x)
+                {
+                    return activ;
+                }
+                else if (activ->data < x)
+                {
+                    activ = activ->right;
+                }
+                else if (activ->data > x)
+                {
+                    activ = activ->left;
+                }
+            }
+        }
+    }
 }
 #endif
 

@@ -684,7 +684,7 @@ TEST_CASE("testing remove() method on a non-empty BST", "[REMOVE]") {
         PrettyPrinter::printPretty(tree.root, 1, 0, ss2);
         INFO("after attempting to remove the value 50");
         const char *treeString2 = "\n"
-            "                ______________51______________\n"
+            "                ______________50______________\n"
             "               /                              \\\n"
             "        ______25______                  ______75      \n"
             "       /              \\                /               \n"
