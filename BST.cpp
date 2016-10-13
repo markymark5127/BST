@@ -187,15 +187,9 @@ void BST<T>::remove(const T & x)
 		{
 			Node<T> *sNode = findSuccessor(delNode);
 			Node<T> *parSNode = findParentOf(sNode->data);
-            if(parSNode->left->right != NULL && )
-            {
-                parSNode->left = par->
-            }
-            else
-            {
-
-            }
-			delNode->data = sNode->data;
+            int replace = sNode->data;
+            remove(sNode->data);
+			delNode->data = replace;
 			remove(x);
 		}
 		numNodes--;
@@ -335,24 +329,25 @@ Node<T> * BST<T>::findParentOf(const T & x)
         else
         {
             Node<T> *activ = root;
-            while (activ != NULL)
+            while( activ != NULL)
             {
-
-                if (activ->left->data == x || activ->right->data == x)
-                {
-                    return activ;
-                }
-                else if (activ->data < x)
+                if(activ->data < x)
                 {
                     activ = activ->right;
                 }
-                else if (activ->data > x)
+                else if(activ->data > x)
                 {
                     activ = activ->left;
                 }
+                else
+                {
+                    return activ;
+                }
+
             }
         }
     }
+    else{return NULL;}
 }
 #endif
 
