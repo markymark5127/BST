@@ -329,21 +329,52 @@ Node<T> * BST<T>::findParentOf(const T & x)
         else
         {
             Node<T> *activ = root;
-            while( activ != NULL)
+            while( activ->right != NULL || activ->left != NULL)
             {
-                if(activ->data < x)
+                if(activ->right != NULL)
                 {
-                    activ = activ->right;
+                    if(activ->right->data == x)
+                    {
+                        return activ;
+                    }
+                    else if(activ->data < x)
+                    {
+                        activ = activ->right;
+                    }
+                    else if(activ->left != NULL)
+                    {
+                        if (activ->left->data == x)
+                        {
+                            return activ;
+                        }
+                        else if (activ->data > x)
+                        {
+                            activ = activ->left;
+                        }
+                    }
                 }
-                else if(activ->data > x)
+                else if(activ->left != NULL)
                 {
-                    activ = activ->left;
+                    if(activ->left->data == x)
+                    {
+                        return activ;
+                    }
+                    else if(activ->data > x)
+                    {
+                        activ = activ->left;
+                    }
+                    else if(activ->right != NULL)
+                    {
+                        if (activ->right->data == x)
+                        {
+                            return activ;
+                        }
+                        else if (activ->data < x)
+                        {
+                            activ = activ->right;
+                        }
+                    }
                 }
-                else
-                {
-                    return activ;
-                }
-
             }
         }
     }
