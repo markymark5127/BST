@@ -149,7 +149,6 @@ void BST<T>::remove(const T & x)
 	if(find(x))
 	{
 		Node<T> *delNode = findNode(root,x);
-		Node<T> *parNode = findParentOf(x);
 		//Case 2: The node to remove has *no children*, i.e. is a leaf node - simply remove the node
 		if(delNode->left==NULL && delNode->right == NULL)
 		{
@@ -159,12 +158,12 @@ void BST<T>::remove(const T & x)
 			}
 			else
 			{
-
-				if(parNode->right->data == x)
+                Node<T> *parNode = findParentOf(x);
+				if(parNode->right != NULL && parNode->right->data == x)
 				{
 					parNode->right = NULL;
 				}
-				else if(parNode->left->data == x)
+				else if(parNode->left != NULL && parNode->left->data == x)
 				{
 					parNode->left = NULL;
 				}
@@ -175,6 +174,7 @@ void BST<T>::remove(const T & x)
 		//Case 3: The node to remove has *one child* - replace the node with its child
 		else if(delNode->left == NULL || delNode->right == NULL)
 		{
+            //std::cout<<"case 3"<<"\n";
             if(delNode->data == root->data)
             {
                 if(delNode->left != NULL)
@@ -186,6 +186,7 @@ void BST<T>::remove(const T & x)
                     root = delNode->right;
                 }
             }
+            Node<T> *parNode = findParentOf(x);
 			if(delNode->left != NULL)
 			{
                 if(parNode->data > delNode->data)
@@ -319,6 +320,7 @@ Node<T> * BST<T>::insertNode(Node<T> * node,const T & x)
         }
         return node;
     }
+    return NULL;
 }
 #endif
 
@@ -346,7 +348,7 @@ Node<T> * BST<T>::findSuccessor(Node<T> * node)
 template <class T>
 Node<T> * BST<T>::findParentOf(const T & x)
 {
-    if(find(x))
+    if(find(x) == true)
     {
         if(root->data == x)
         {
@@ -354,57 +356,27 @@ Node<T> * BST<T>::findParentOf(const T & x)
         }
         else
         {
+
             Node<T> *activ = root;
-            while( activ->right != NULL || activ->left != NULL)
+            while(activ != findNode(root,x))
             {
-                if(activ->right != NULL)
+                if ((activ->right != NULL && activ->right->data == x) || (activ->left != NULL && activ->left->data == x))
                 {
-                    if(activ->right->data == x)
-                    {
-                        return activ;
-                    }
-                    else if(activ->data < x)
-                    {
-                        activ = activ->right;
-                    }
-                    else if(activ->left != NULL)
-                    {
-                        if (activ->left->data == x)
-                        {
-                            return activ;
-                        }
-                        else if (activ->data > x)
-                        {
-                            activ = activ->left;
-                        }
-                    }
+                    return activ;
                 }
-                else if(activ->left != NULL)
+                else if (x < activ->data)
                 {
-                    if(activ->left->data == x)
-                    {
-                        return activ;
-                    }
-                    else if(activ->data > x)
-                    {
-                        activ = activ->left;
-                    }
-                    else if(activ->right != NULL)
-                    {
-                        if (activ->right->data == x)
-                        {
-                            return activ;
-                        }
-                        else if (activ->data < x)
-                        {
-                            activ = activ->right;
-                        }
-                    }
+                    activ = activ->left;
+                }
+                else
+                {
+                    activ = activ->right;
                 }
             }
+
         }
     }
-    else{return NULL;}
+    return NULL;
 }
 #endif
 

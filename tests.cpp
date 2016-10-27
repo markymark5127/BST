@@ -462,7 +462,6 @@ TEST_CASE("testing remove() method on a non-empty BST", "[REMOVE]") {
     INFO("Your BST is: " << ss.str());
     INFO("before calling remove(x), BST numNodes should be 12");
     REQUIRE(tree.numNodes == 12);
-
     SECTION("verify that remove(x) doesn't break anything when attempting to remove a value not in BST") {
         tree.remove(4);
         tree.remove(29);
