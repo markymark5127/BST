@@ -37,7 +37,7 @@ template <class T>
 bool BST<T>::isEmpty()
 {
     bool ans = false;
-    if(root == NULL && numNodes == 0)
+    if(numNodes == 0)
     {
         ans = true;
     }
@@ -132,7 +132,7 @@ void BST<T>::insert(const T & x)
     else
     {
         root = new Node<T>(x,NULL,NULL);
-        numNodes=1;
+        numNodes++;
     }
 }
 #endif
@@ -144,6 +144,7 @@ void BST<T>::insert(const T & x)
 template <class T>
 void BST<T>::remove(const T & x)
 {
+
     //Case 1: The value to remove is not in the tree - do nothing.
 	if(find(x))
 	{
@@ -169,30 +170,55 @@ void BST<T>::remove(const T & x)
 				}
 				delete delNode;
 			}
+            numNodes--;
 		}
 		//Case 3: The node to remove has *one child* - replace the node with its child
-		else if(delNode->left ==NULL || delNode->right==NULL)
+		else if(delNode->left == NULL || delNode->right == NULL)
 		{
+            if(delNode->data == root->data)
+            {
+                if(delNode->left != NULL)
+                {
+                    root = delNode->left;
+                }
+                else
+                {
+                    root = delNode->right;
+                }
+            }
 			if(delNode->left != NULL)
 			{
-				delNode = delNode->left;
+                if(parNode->data > delNode->data)
+                {
+                    parNode->left = delNode->left;
+                }
+                else
+                {
+                    parNode->right = delNode->left;
+                }
 			}
 			else
 			{
-				delNode = delNode->right;
+                if(parNode->data > delNode->data)
+                {
+                    parNode->left = delNode->right;
+                }
+                else
+                {
+                    parNode->right = delNode->right;
+                }
 			}
+            delete delNode;
+            numNodes--;
 		}
 		//Case 4: The node to remove has *two children* - replace the node with its *successor*
 		else
 		{
 			Node<T> *sNode = findSuccessor(delNode);
-			Node<T> *parSNode = findParentOf(sNode->data);
-            int replace = sNode->data;
+            T successAns = sNode->data;
             remove(sNode->data);
-			delNode->data = replace;
-			remove(x);
+			delNode->data = successAns;
 		}
-		numNodes--;
 	}
 }
 #endif
