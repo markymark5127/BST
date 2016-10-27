@@ -364,14 +364,15 @@ Node<T> * BST<T>::findParentOf(const T & x)
                 {
                     return activ;
                 }
-                else if (x < activ->data)
+                else if (activ ->left != NULL && x < activ->data)
                 {
                     activ = activ->left;
                 }
-                else
+                else if(activ ->right != NULL && x > activ->data)
                 {
                     activ = activ->right;
                 }
+                else{ return NULL;}
             }
 
         }
